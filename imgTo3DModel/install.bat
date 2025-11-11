@@ -36,11 +36,27 @@ python -m pip install --upgrade pip
 
 REM 安装PyTorch (CUDA版本)
 echo 安装PyTorch (支持CUDA)...
-pip install torch torchvision --index-url https://download.pytorch.org/whl/cu118
+if exist "offline_packages\pytorch_wheels" (
+    echo 检测到本地 PyTorch wheel 文件，使用离线安装...
+    pip install --no-index --find-links offline_packages\pytorch_wheels torch torchvision
+    if %errorlevel% neq 0 (
+        echo 离线安装失败，尝试在线安装...
+        pip install torch torchvision --index-url https://download.pytorch.org/whl/cu118
+    )
+) else (
+    echo 使用在线安装...
+    pip install torch torchvision --index-url https://download.pytorch.org/whl/cu118
+)
 
 REM 安装项目依赖
 echo 安装项目依赖...
-pip install -r app\requirements.txt
+if exist "offline_packages\python_packages" (
+    echo 检测到本地依赖包，优先使用离线安装...
+    pip install --find-links offline_packages\python_packages -r app\requirements.txt
+) else (
+    echo 使用在线安装...
+    pip install -r app\requirements.txt
+)
 
 REM 创建必要目录
 echo 创建必要目录...
