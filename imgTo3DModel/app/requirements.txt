@@ -17,8 +17,8 @@ imageio[ffmpeg]
 xatlas==0.0.9
 moderngl==5.10.0
 
-# 3D处理相关
-git+https://github.com/tatsy/torchmcubes.git
+# 3D处理相关 - 使用GitHub代理加速
+git+https://mirror.ghproxy.com/https://github.com/tatsy/torchmcubes.git
 
 # 额外工具
 tqdm

@@ -1,5 +1,5 @@
 @echo off
-echo 图片转3D模型系统 - 启动
+echo 图片转3D模型系统 - 启动（国内镜像加速版）
 echo ========================
 
 REM 检查是否已安装
@@ -18,6 +18,10 @@ if not exist "models\TripoSR" (
 REM 激活虚拟环境
 echo 激活虚拟环境...
 call venv\Scripts\activate
+
+REM 设置HuggingFace镜像环境变量（确保运行时使用国内镜像）
+echo 配置HuggingFace使用国内镜像...
+set HF_ENDPOINT=https://hf-mirror.com
 
 REM 启动应用
 echo 启动图片转3D模型系统...
